@@ -14,7 +14,7 @@ def create_client_tables():
                 salesforce_last_modified timestamp,
                 name character varying(255),
                 description text,
-                2023_target_revenue numeric,
+                target_revenue_2023 numeric,
                 billing_state character varying(255),
                 billing_country character varying(255),
                 billing_zip_code character varying(45),
