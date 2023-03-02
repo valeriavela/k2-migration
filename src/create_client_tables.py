@@ -54,31 +54,28 @@ def create_client_tables():
                 suitability boolean,
                 created_at timestamp with time zone,
                 updated_at timestamp with time zone,
-                PRIMARY KEY ("client_id")
+                PRIMARY KEY (client_id)
         )
         """,
         """
-        CREATE TABLE "Client settlement" (
-                "settlement_id" uuid,
-                "client_id" uuid,
-                "account name" character varying(255),
-                "side" character varying(255),
-                "tax ID" character varying(45),
-                "clearing" character varying(255),
-                "DTC" int,
-                "institution ID" int,
-                "agent bank ID" int,
-                "account number" character varying(45),
-                "CMTA" character varying(45),
-                "CUID" character varying(45),
-                "notes" text,
-                "country" character varying(45),
-                "created_at" timestamp with time zone,
-                "updated_at" timestamp with time zone,
-                PRIMARY KEY ("settlement_id"),
-                CONSTRAINT "FK_Client settlement.client_id"
-                    FOREIGN KEY ("client_id")
-                    REFERENCES "client"("client_id")
+        CREATE TABLE IF NOT EXISTS public.client_settlement (
+                client_settlement_id uuid,
+                client_id uuid,
+                account_name character varying(255),
+                clearing character varying(255),
+                tax_id character varying(45),
+                DTC integer,
+                institution_id character varying(45),
+                agent_bank_id character varying(45),
+                account_number character varying(45),
+                clearing_account_number character varying(45),
+                occ character varying(45),
+                created_at timestamp with time zone,
+                updated_at timestamp with time zone,
+                PRIMARY KEY (client_settlement_id),
+                CONSTRAINT FK_client_settlement.client_id
+                    FOREIGN KEY (client_id)
+                    REFERENCES public.client(client_id)
         );
         """
         """
