@@ -38,7 +38,7 @@ def create_client_tables():
                 phone character varying(31),
                 sec_number character varying(31),
                 scheduled_research_calls character varying(255),
-                website character varying(255)
+                website character varying(255),
                 broker_dealer boolean,
                 large_trader_name character varying(255),
                 ltid character varying(45),
@@ -94,7 +94,7 @@ def create_client_tables():
                 retail boolean,
                 created_at timestamp with time zone,
                 updated_at timestamp with time zone,
-                PRIMARY KEY (client_id)
+                PRIMARY KEY (client_id),
                 CONSTRAINT FK_epm_clients.client_id
                     FOREIGN KEY (client_id)
                     REFERENCES public.clients(client_id)
