@@ -75,93 +75,29 @@ def create_client_tables():
                 PRIMARY KEY (client_settlement_id),
                 CONSTRAINT FK_client_settlement.client_id
                     FOREIGN KEY (client_id)
-                    REFERENCES public.client(client_id)
-        );
-        """
-        """
-        CREATE TABLE "client_interaction" (
-                "salesforce_id" character(15),
-                "client_id" uuid,
-                "name" character varying(255),
-                "analyst on interaction" character varying(255),
-                "date" date,
-                "days since last interaction" numeric,
-                "deal interest" text,
-                "flow interactions" numeric,
-                "notes" text,
-                "notification" character varying(45),
-                "primary contacts in interaction" character varying(45),
-                "secondary contacts in interaction" character varying(45),
-                "resource or relationship interaction" USER-DEFINED,
-                "time spent(minutes)" numeric,
-                "salesperson" uuid,
-                "type of interaction" character varying(255),
-                "value added interaction" boolean,
-                "created by (SF)" character varying(45),
-                "created date (SF)" date,
-                "last modified date (SF)" date,
-                "created_at" timestamp with time zone,
-                "updated_at" timestamp with time zone,
-                PRIMARY KEY ("salesforce_id"),
-                CONSTRAINT "FK_client_interaction.salesperson"
-                    FOREIGN KEY ("salesperson")
-                    REFERENCES "salesperson"("salesperson_id"),
-                CONSTRAINT "FK_client_interaction.client_id"
-                    FOREIGN KEY ("client_id")
-                    REFERENCES "client"("client_id")
-        );
-        """
-
-        """
-        CREATE TABLE "Elevation Private Markets Clients" (
-                "client_id" uuid,
-                "seller" boolean,
-                "buyer" boolean,
-                "company" boolean,
-                "accredited investors" boolean,
-                "cost basis" int[],
-                "tax year" date,
-                "suitability" boolean,
-                "CRS provided" boolean,
-                "CRS conflict" boolean,
-                "individual" boolean,
-                "created_at" timestamp with time zone,
-                "updated_at" timestamp with time zone,
-                PRIMARY KEY ("client_id")
-        );
-        """
-
-        """
-        CREATE TABLE vendors (
-            vendor_id SERIAL PRIMARY KEY,
-            vendor_name VARCHAR(255) NOT NULL
-        )
-        """,
-        """ CREATE TABLE parts (
-                part_id SERIAL PRIMARY KEY,
-                part_name VARCHAR(255) NOT NULL
-                )
-        """,
-        """
-        CREATE TABLE part_drawings (
-                part_id INTEGER PRIMARY KEY,
-                file_extension VARCHAR(5) NOT NULL,
-                drawing_data BYTEA NOT NULL,
-                FOREIGN KEY (part_id)
-                REFERENCES parts (part_id)
-                ON UPDATE CASCADE ON DELETE CASCADE
+                    REFERENCES public.clients(client_id)
+                    ON UPDATE CASCADE ON DELETE CASCADE
         )
         """,
         """
-        CREATE TABLE vendor_parts (
-                vendor_id INTEGER NOT NULL,
-                part_id INTEGER NOT NULL,
-                PRIMARY KEY (vendor_id , part_id),
-                FOREIGN KEY (vendor_id)
-                    REFERENCES vendors (vendor_id)
-                    ON UPDATE CASCADE ON DELETE CASCADE,
-                FOREIGN KEY (part_id)
-                    REFERENCES parts (part_id)
+        CREATE TABLE IF NOT EXISTS public.epm_clients (
+                client_id uuid,
+                seller boolean,
+                buyer boolean,
+                company boolean,
+                accredited_investors boolean,
+                cost_basis numeric[],
+                tax_year integer,
+                suitability_docs boolean,
+                crs_provided boolean,
+                crs_conflict boolean,
+                retail boolean,
+                created_at timestamp with time zone,
+                updated_at timestamp with time zone,
+                PRIMARY KEY (client_id)
+                CONSTRAINT FK_epm_clients.client_id
+                    FOREIGN KEY (client_id)
+                    REFERENCES public.clients(client_id)
                     ON UPDATE CASCADE ON DELETE CASCADE
         )
         """)
