@@ -73,7 +73,7 @@ def create_client_tables():
                 created_at timestamp with time zone,
                 updated_at timestamp with time zone,
                 PRIMARY KEY (client_settlement_id),
-                CONSTRAINT FK_client_settlement.client_id
+                CONSTRAINT FK_client_settlement_client_id
                     FOREIGN KEY (client_id)
                     REFERENCES public.clients(client_id)
                     ON UPDATE CASCADE ON DELETE CASCADE
@@ -95,7 +95,7 @@ def create_client_tables():
                 created_at timestamp with time zone,
                 updated_at timestamp with time zone,
                 PRIMARY KEY (client_id),
-                CONSTRAINT FK_epm_clients.client_id
+                CONSTRAINT FK_epm_clients_client_id
                     FOREIGN KEY (client_id)
                     REFERENCES public.clients(client_id)
                     ON UPDATE CASCADE ON DELETE CASCADE
