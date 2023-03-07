@@ -96,6 +96,40 @@ def sf_connect():
     """)
     
     print(type(results))
+    records = [dict(salesforce_account_owner=rec['OwnerId'],
+                salesforce_account_id=rec['Id'],
+                salesforce_created=rec['CreatedDate'],
+                salesforce_last_modified=rec['LastModifiedDate'],
+                name=rec['Name'],
+                description=rec['Description'],
+                target_revenue_2023=rec['X2023_Target_Revenue__c'],
+                billing_state=rec['BillingState'],
+                billing_country=rec['BillingCountry'],
+                billing_zip_code=rec['BillingPostalCode'],
+                account_gameplan=rec['Account_Gameplan__c'],
+                account_status=rec['Account_Status__c'],
+                account_structure=rec['Account_Structure__c'],
+                client_category=rec['Client_Category__c'],
+                crd_number=rec['CRD_Number__c'],
+                date_opened=rec['Date_Opened__c'],
+                elevation_coverage=rec['Elevation_cover__c'],
+                elevation_coverage_1=rec['Elevation_Coverage_1__c'],
+                elevation_coverage_1_asset_class=rec['Elevation_Coverage_1_Asset_Class__c'],
+                elevation_coverage_2=rec['Elevation_Coverage_2__c'],
+                elevation_coverage_2_asset_class=rec['Elevation_Coverage_2_Asset_Class__c'],
+                elevation_coverage_3=rec['Elevation_Coverage_3__c'],
+                elevation_coverage_3_asset_class=rec['Elevation_Coverage_3_Asset_Class__c'],
+                elevation_product_interest=rec['Elevation_Product_Interest__c'],
+                is_account_closed=rec['Is_Account_Closed__c'],
+                notes=rec['Notes__c'],
+                open_to_trade_options=rec['Open_to_Trade_Options__c'],
+                phone=rec['Phone'],
+                sec_number=rec['SEC_Number__c'],
+                scheduled_research_calls=rec['Schedule_Research_Calls__c'],
+                website=rec['Website']) 
+                for rec in results['records']]
+    df=pd.DataFrame(records)
+    df.to_csv("/Users/valeriavela/Downloads/sf_results.csv")
 
 
 if __name__ == '__main__':
