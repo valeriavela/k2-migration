@@ -58,6 +58,45 @@ def sf_connect():
     descri=sf.Account.describe()
     print([field['name'] for field in descri['fields']])
 
+    results=sf.query_all(
+    """
+    Select 
+    OwnerId,
+    Id,
+    CreatedDate,
+    LastModifiedDate,
+    Name,
+    Description,
+    X2023_Target_Revenue__c,
+    BillingState,
+    BillingCountry,
+    BillingPostalCode,
+    Account_Gameplan__c,
+    Account_Status__c,
+    Account_Structure__c,
+    Client_Category__c,
+    CRD_Number__c,
+    Date_Opened__c,
+    Elevation_cover__c,
+    Elevation_Coverage_1__c,
+    Elevation_Coverage_1_Asset_Class__c,
+    Elevation_Coverage_2__c,
+    Elevation_Coverage_2_Asset_Class__c,
+    Elevation_Coverage_3__c,
+    Elevation_Coverage_3_Asset_Class__c,
+    Elevation_Product_Interest__c,
+    Is_Account_Closed__c,
+    Notes__c,
+    Open_to_Trade_Options__c,
+    Phone,
+    SEC_Number__c,
+    Schedule_Research_Calls__c,
+    Website
+    from Account
+    """)
+    
+    print(type(results))
+
 
 if __name__ == '__main__':
     sf_connect()
