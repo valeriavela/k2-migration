@@ -128,6 +128,7 @@ def sf_connect():
                 scheduled_research_calls=rec['Schedule_Research_Calls__c'],
                 website=rec['Website']) 
                 for rec in results['records']]
+    
     df=pd.DataFrame(records)
     df.to_csv("/Users/valeriavela/Downloads/sf_results.csv")
 
