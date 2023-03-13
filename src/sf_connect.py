@@ -6,6 +6,7 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 from config import config
+from datetime import datetime
 
 def get_secret():
 
@@ -130,7 +131,17 @@ def sf_connect():
                 for rec in results['records']]
     
     df=pd.DataFrame(records)
-    df.to_csv("/Users/valeriavela/Downloads/sf_results.csv")
+    # df.to_csv("/Users/valeriavela/Downloads/sf_results.csv")
+
+    now = datetime.now()
+
+    bucket = 'k2-sf-clients' # already created on S3
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer)
+    s3_resource = boto3.resource('s3')
+    file_name = 'clients_' + now.strftime("%m%d%YT%H:%M:%S") + '.csv'
+    s3_resource.Object(bucket, file_name).put(Body=csv_buffer.getvalue())
+
 
 
 if __name__ == '__main__':
